@@ -19,9 +19,9 @@ MainWindow::MainWindow(QWidget *parent)
     ui->TV_Progs_dateEdit->setMaximumDate(QDate::currentDate().addDays(14));
     fillTranslations(&db,logFile);
 
-    displTransl(ui->TV_Progs_dateEdit->date(),ui->channel_spinBox->value());
     displPlans();
     displSel();
+    displTransl(ui->TV_Progs_dateEdit->date(),ui->channel_spinBox->value());
 
 
 }

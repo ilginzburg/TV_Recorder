@@ -6,7 +6,6 @@ The search in Planning for: Огненные дорогиhas been performed succ
 The search in Planning for: Вестиhas been performed successfully
 Найдена трансляция: Вести
 The search in Planning for: Интервью с Бузовойhas been performed successfully
-Найдена запланированная передача: Интервью с Бузовой
 Найдена трансляция: Интервью с Бузовой
 The search in Planning for: Смакhas been performed successfully
 Найдена трансляция: Смак
@@ -52,3 +51,17 @@ The search in Planning for: Музыкальный киоскhas been performed 
 Найдена трансляция: Музыкальный киоск
 The search in Planning for: has been performed successfully
 Найдена трансляция: 
+Передача: Вестидобавлена в список передач
+Передача Интервью с Бузовой внесена в список передач
+Передача: Интервью с Бузовойдобавлена в список передач
+Передача Интервью с Бузовой внесена в список передач
+Передача: Смакдобавлена в список передач
+Передача Интервью с Бузовой внесена в список передач
+SELECT MAX(Rating) FROM Shows WHERE Date = '2021-03-26' AND ((StartShowTime <= '16:00' AND StartShowTime >='14:55') OR (EndShowTime <= '16:00' AND EndShowTime >='14:55')) AND Channel = 1Передача: Интервью с Бузовойдобавлена
+Передача Интервью с Бузовой внесена в список планирований
+Передача Интервью с Бузовой обнаружена и будет удалена из запланированных
+
+Планирование: 14:55:00удалено
+Передача Интервью с Бузовой удалена из списка планирований
+DELETE FROM Shows WHERE  Date = '2021-03-26' AND ((StartShowTime <= '16:00' AND StartShowTime >='14:55') OR (EndShowTime <= '16:00' AND EndShowTime >='14:55')) AND Channel = 1
+Передачи с: 14:55 до 16:00
