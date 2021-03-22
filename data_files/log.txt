@@ -1,0 +1,54 @@
+The database SQLite version: 3.34.1 has been opened successfully
+Таблица "Shows" создана
+Таблица "Планирования" создана
+The search in Planning for: Огненные дорогиhas been performed successfully
+Найдена трансляция: Огненные дороги
+The search in Planning for: Вестиhas been performed successfully
+Найдена трансляция: Вести
+The search in Planning for: Интервью с Бузовойhas been performed successfully
+Найдена запланированная передача: Интервью с Бузовой
+Найдена трансляция: Интервью с Бузовой
+The search in Planning for: Смакhas been performed successfully
+Найдена трансляция: Смак
+The search in Planning for: Зенит - Пахтакорhas been performed successfully
+Найдена трансляция: Зенит - Пахтакор
+The search in Planning for: Остров сокровищhas been performed successfully
+Найдена трансляция: Остров сокровищ
+The search in Planning for: Окна 2has been performed successfully
+Найдена трансляция: Окна 2
+The search in Planning for: СССР - ФРГhas been performed successfully
+Найдена трансляция: СССР - ФРГ
+The search in Planning for: Весёлые стартыhas been performed successfully
+Найдена трансляция: Весёлые старты
+The search in Planning for: Новости дняhas been performed successfully
+Найдена трансляция: Новости дня
+The search in Planning for: Съезд КПСС has been performed successfully
+Найдена трансляция: Съезд КПСС 
+The search in Planning for: Международная панорамаhas been performed successfully
+Найдена трансляция: Международная панорама
+The search in Planning for: Сельский часhas been performed successfully
+Найдена трансляция: Сельский час
+The search in Planning for: КВНhas been performed successfully
+Найдена трансляция: КВН
+The search in Planning for: В мире животныхhas been performed successfully
+Найдена трансляция: В мире животных
+The search in Planning for: В гостях у сказкиhas been performed successfully
+Найдена трансляция: В гостях у сказки
+The search in Planning for: Программа Времяhas been performed successfully
+Найдена трансляция: Программа Время
+The search in Planning for: Взглядhas been performed successfully
+Найдена трансляция: Взгляд
+The search in Planning for: Приключения Буратиноhas been performed successfully
+Найдена трансляция: Приключения Буратино
+The search in Planning for: Миминоhas been performed successfully
+Найдена трансляция: Мимино
+The search in Planning for: Речь товарища Громыкоhas been performed successfully
+Найдена трансляция: Речь товарища Громыко
+The search in Planning for: Человек и законhas been performed successfully
+Найдена трансляция: Человек и закон
+The search in Planning for: Речь товарища Дзержинскогоhas been performed successfully
+Найдена трансляция: Речь товарища Дзержинского
+The search in Planning for: Музыкальный киоскhas been performed successfully
+Найдена трансляция: Музыкальный киоск
+The search in Planning for: has been performed successfully
+Найдена трансляция: 
