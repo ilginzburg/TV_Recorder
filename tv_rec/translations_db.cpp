@@ -10,7 +10,7 @@ void displayTranslations(QDate date, int channel, QString &s)
     QLocale curLocale(QLocale("ru_RU"));
     QLocale::setDefault(curLocale);
     s += "ДАТА\t\tВРЕМЯ\t\tКАНАЛ\tПЕРЕДАЧА \t        РЕЙТИНГ   ПЛАНИР\n";
-    s += "-----------------------------------------------------------------------------------------------------------------------------\n";
+    s += "-------------------------------------------------------------------------------------------------------------------------------\n";
     for(int i = 0; i < db.size; ++i )
     {
         if(channel == db.data[i]->channel.toInt() && date.operator==(db.data[i]->date))

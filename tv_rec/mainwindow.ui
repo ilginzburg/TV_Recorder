@@ -42,7 +42,7 @@
        <bool>false</bool>
       </property>
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <property name="documentMode">
        <bool>true</bool>
@@ -66,7 +66,7 @@
          <rect>
           <x>0</x>
           <y>320</y>
-          <width>711</width>
+          <width>801</width>
           <height>52</height>
          </rect>
         </property>
@@ -209,7 +209,7 @@
          <rect>
           <x>0</x>
           <y>250</y>
-          <width>711</width>
+          <width>801</width>
           <height>51</height>
          </rect>
         </property>
@@ -344,7 +344,7 @@
        <widget class="QPushButton" name="ExitPushButton">
         <property name="geometry">
          <rect>
-          <x>620</x>
+          <x>710</x>
           <y>380</y>
           <width>91</width>
           <height>31</height>

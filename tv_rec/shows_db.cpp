@@ -169,5 +169,4 @@ int callbackShows(void *param, int argc, char **argv, char **azColName)
     }
     *data += '\n';
     return 0;
-
 }

@@ -168,18 +168,6 @@ int updatePlanning (QDate date, int channel, QString name, QTime startRecTime, Q
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
 bool isExistsPlanning(QString name, int channel, QDate date, QTime startShowTime, sqlite3 **sqldb,std::ofstream &logFile)
 {
     char *err_msg = 0;
