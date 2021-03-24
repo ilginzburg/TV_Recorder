@@ -194,7 +194,7 @@ bool isExistsPlanning(QString name, int channel, QDate date, QTime startShowTime
 int printPlanning (sqlite3 **db, std::string &data,std::ofstream &logFile)
 {
     char *err_msg = 0;
-    char* sql = (char*)"SELECT * FROM Планирования" ;
+    const char* sql = "SELECT * FROM Планирования" ;
     int rc = sqlite3_exec(*db, sql, &callbackPlanning, &data, &err_msg);
     if (rc != SQLITE_OK )
     {

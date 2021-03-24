@@ -112,7 +112,7 @@ int eraseShows (int channel, QDate date, QTime startRecTime, QTime endRecTime,
 int printShows (sqlite3 **db, std::string &data,std::ofstream &logFile)
 {
     char *err_msg = 0;
-    char* sql = (char*)"SELECT * FROM Shows" ;
+    const char* sql = "SELECT * FROM Shows" ;
     int rc = sqlite3_exec(*db, sql, &callbackShows, &data, &err_msg);
     if (rc != SQLITE_OK )
     {
