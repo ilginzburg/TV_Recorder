@@ -1,30 +1,27 @@
 #include "shows_db.h"
 #include <string>
 #include <fstream>
-#include <QDebug>
-
-
 
 int createShowsTable(sqlite3 **db,std::ofstream &logFile)
 {
     char *err_msg = 0;
     const char *sql = "CREATE TABLE IF NOT EXISTS Shows"
                       "(Date TEXT, StartShowTime TEXT, Channel INT,"
-                       "Name TEXT, EndShowTime TEXT, Rating INT,"
-                       "UNIQUE(Date, StartShowTime,Channel,Name,EndShowTime,Rating));";
-
-        int rc = sqlite3_exec(*db, sql, 0, 0, &err_msg);
-        if (rc == SQLITE_OK ) {
-            logFile<<"Таблица \"Shows\" создана"<<'\n';
-        }
-        else
-        {
-            logFile<<"SQL error: "<<err_msg<<'\n';
-            sqlite3_free(err_msg);
-            sqlite3_close(*db);
-            return 1;
-        }
-   return 0;
+                      "Name TEXT, EndShowTime TEXT, Rating INT,"
+                      "UNIQUE(Date, StartShowTime,Channel,Name,EndShowTime,Rating));";
+    int rc = sqlite3_exec(*db, sql, 0, 0, &err_msg);
+    if (rc == SQLITE_OK )
+    {
+        logFile<<"Таблица \"Shows\" создана"<<'\n';
+    }
+    else
+    {
+        logFile<<"SQL error: "<<err_msg<<'\n';
+        sqlite3_free(err_msg);
+        sqlite3_close(*db);
+        return 1;
+    }
+    return 0;
 }
 
 
@@ -42,34 +39,32 @@ int addShow (QString name, int channel, QDate date, QTime startShowTime,
 
     std::string insertStr = insertQStr.toStdString();
     int  rc = sqlite3_exec(*db, insertStr.c_str(), 0, 0, &err_msg);
-        if (rc == SQLITE_OK )
-        {
-             logFile<<"Передача: "<<name.toStdString()<<"добавлена в список передач"<<'\n';
-        }
-        else
-        {
-            logFile<<"SQL error:  "<<err_msg<<'\n';
-            sqlite3_free(err_msg);
-            sqlite3_close(*db);
-            return 1;
-        }
+    if (rc == SQLITE_OK )
+    {
+         logFile<<"Передача: "<<name.toStdString()<<"добавлена в список передач"<<'\n';
+    }
+    else
+    {
+        logFile<<"SQL error:  "<<err_msg<<'\n';
+        sqlite3_free(err_msg);
+        sqlite3_close(*db);
+        return 1;
+    }
     return 0;
 }
 
 
 
-int eraseShow (QString name, int channel, QDate date, QTime startShowTime, sqlite3 **db,std::ofstream &logFile)
+int eraseShow (QString name, int channel, QDate date, QTime startShowTime,
+               sqlite3 **db,std::ofstream &logFile)
 {
     char *err_msg = 0;
     QString insertQStr = "DELETE FROM Shows WHERE Name = '"
-                           +  name                                                    +
-                           "' AND Date = '"         + date.toString("yyyy-MM-dd")     +
-                           "' AND StartShowTime = '"+ startShowTime.toString("hh:mm") +
-                           "' AND Channel = "       + QString::number(channel);
-
-    std::string insertStr = insertQStr.toStdString();
-    logFile<<insertStr.c_str();
-    int  rc = sqlite3_exec(*db, insertStr.c_str(), 0, 0, &err_msg);
+                                                   +  name                           +
+                         "' AND Date = '"          + date.toString("yyyy-MM-dd")     +
+                         "' AND StartShowTime = '" + startShowTime.toString("hh:mm") +
+                         "' AND Channel = "        + QString::number(channel);
+    int  rc = sqlite3_exec(*db, insertQStr.toStdString().c_str(), 0, 0, &err_msg);
     if (rc == SQLITE_OK )
     {
         logFile<<"\nПередача: "<<name.toStdString()<<" удалена из списка передач Shows"<<'\n';
@@ -85,25 +80,23 @@ int eraseShow (QString name, int channel, QDate date, QTime startShowTime, sqlit
 }
 
 
-int eraseShows (int channel, QDate date, QTime startRecTime, QTime endRecTime, sqlite3 **db,std::ofstream &logFile)
+int eraseShows (int channel, QDate date, QTime startRecTime, QTime endRecTime,
+                sqlite3 **db,std::ofstream &logFile)
 {
     char *err_msg = 0;
     QString insertQStr = "DELETE FROM Shows WHERE  Date = '"
-                           + date.toString("yyyy-MM-dd")     +
-                           "' AND ((StartShowTime <= '"+ endRecTime.toString("hh:mm")+
-                                   "' AND StartShowTime >='"+ startRecTime.toString("hh:mm")
-                           +"') OR (EndShowTime <= '"+ endRecTime.toString("hh:mm")+
-                                   "' AND EndShowTime >='"+ startRecTime.toString("hh:mm")
-                           +"')) AND Channel = "+ QString::number(channel);
-
-    std::string insertStr = insertQStr.toStdString();
-    logFile<<insertStr.c_str();
-    int  rc = sqlite3_exec(*db, insertStr.c_str(), 0, 0, &err_msg);
+                                                        + date.toString("yyyy-MM-dd")   +
+                           "' AND ((StartShowTime <= '" + endRecTime.toString("hh:mm")  +
+                           "' AND StartShowTime   >= '" + startRecTime.toString("hh:mm")+
+                           "') OR (EndShowTime    <= '" + endRecTime.toString("hh:mm")  +
+                           "' AND EndShowTime     >= '" + startRecTime.toString("hh:mm")+
+                           "')) AND Channel        =  " + QString::number(channel);
+    int  rc = sqlite3_exec(*db, insertQStr.toStdString().c_str(), 0, 0, &err_msg);
     if (rc == SQLITE_OK )
     {
-         logFile<<"\nПередачи с: "<<startRecTime.toString("hh:mm").toStdString()<<" до "
-                   <<endRecTime.toString("hh:mm").toStdString()<<
-                     " удалены из списка передач Shows"<<'\n';
+         logFile<<"\nПередачи с: "<<startRecTime.toString("hh:mm").toStdString()
+                <<" до "<<endRecTime.toString("hh:mm").toStdString()
+                <<" удалены из списка передач Shows"<<'\n';
     }
     else
     {
@@ -114,8 +107,6 @@ int eraseShows (int channel, QDate date, QTime startRecTime, QTime endRecTime, s
     }
     return 0;
 }
-
-
 
 
 int printShows (sqlite3 **db, std::string &data,std::ofstream &logFile)
@@ -142,9 +133,7 @@ int callbackShows(void *param, int argc, char **argv, char **azColName)
     QTime time;
     QLocale curLocale(QLocale("ru_RU"));
     QLocale::setDefault(curLocale);
-
-    std::string *data = static_cast<std::string *>(param);
-
+    std::string *data = static_cast<std::string*>(param);
     for (int i = 0; i < argc; i++)
     {
         if(i == 0)

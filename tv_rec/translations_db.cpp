@@ -27,18 +27,18 @@ void displayTranslations(QDate date, int channel, QString &s)
 }
 
 
-void addNewPlanning(QDate date, QTime startRecTime, QTime endRecTime, int channel, sqlite3 **sqldb,std::ofstream &logFile)
+void addNewPlanning(QDate date, QTime startRecTime, QTime endRecTime, int channel,
+                    sqlite3 **sqldb,std::ofstream &logFile)
 {
     int idx = findTranslation(date, startRecTime, endRecTime, channel);
     if(idx < 0)
     {
         logFile<<"Во временном интервале с "<<startRecTime.toString().toStdString()<<" до "
-               <<endRecTime.toString().toStdString() <<" передачу найти не удалось \n";
+               <<endRecTime.toString().toStdString() <<" передачу найти не удалось"<<std::endl;
         return;
     }
     if(db.data[idx]->isPlanned == true)
     {
-
         QMessageBox msgBox;
         msgBox.setText("Эта передача была запланирована раннее.");
         msgBox.setInformativeText("Изменить планирование?");
@@ -66,19 +66,24 @@ void addNewPlanning(QDate date, QTime startRecTime, QTime endRecTime, int channe
     addNewShows(date, startRecTime, endRecTime, channel, idx, sqldb, logFile);
     addPlanning (db.data[idx]->name, channel, date, startRecTime, db.data[idx]->start_time,
                  endRecTime, db.data[idx]->end_time, db.data[idx]->rating.toInt(), sqldb, logFile);
-    logFile<<"Передача "<< db.data[idx]->name.toStdString() <<" внесена в список планирований\n";
+    logFile<<"Передача "<< db.data[idx]->name.toStdString()
+           <<" внесена в список планирований"<<std::endl;
 }
 
 
-void addNewShows(QDate date, QTime startRecTime, QTime endRecTime, int channel, int idx, sqlite3 **sqldb,std::ofstream &logFile)
+void addNewShows(QDate date, QTime startRecTime, QTime endRecTime, int channel, int idx,
+                 sqlite3 **sqldb,std::ofstream &logFile)
 {
     for(int i = 0; i < db.size; ++i )
     {
-        if(channel == db.data[i]->channel.toInt() && date.operator==(db.data[i]->date)
-        && startRecTime.operator<=(db.data[i]->end_time)&& endRecTime.operator>=(db.data[i]->start_time))
+        if(channel == db.data[i]->channel.toInt()
+           && date.operator==(db.data[i]->date)
+           && startRecTime.operator<=(db.data[i]->end_time)
+           && endRecTime.operator>=(db.data[i]->start_time))
         {
-            addShow (db.data[i]->name, db.data[i]->channel.toInt(), db.data[i]->date, db.data[i]->start_time,
-                    db.data[i]->end_time, db.data[i]->rating.toInt(), sqldb, logFile);
+            addShow (db.data[i]->name, db.data[i]->channel.toInt(),
+                     db.data[i]->date, db.data[i]->start_time,
+                     db.data[i]->end_time, db.data[i]->rating.toInt(), sqldb, logFile);
             logFile<<"Передача "<< db.data[idx]->name.toStdString() <<" внесена в список передач\n";
         }
     }
@@ -90,14 +95,14 @@ int findTranslation(QDate date, QTime startRecTime, QTime endRecTime, int channe
 {
     for(int i = 0; i < db.size; ++i )
     {
-         if(channel == db.data[i]->channel.toInt() && date.operator==(db.data[i]->date)
-           && startRecTime.operator<=(db.data[i]->start_time)&& endRecTime.operator>=(db.data[i]->end_time))
+         if(channel == db.data[i]->channel.toInt()
+            && date.operator==(db.data[i]->date)
+            && startRecTime.operator<=(db.data[i]->start_time)
+            && endRecTime.operator>=(db.data[i]->end_time))
             return i;
     }
     return -1;
 }
-
-
 
 
 void fillTranslations(sqlite3 **sqldb, std::ofstream &logFile)
@@ -129,7 +134,6 @@ Translation* createTranslation(sqlite3 **sqldb, std::ofstream &logFile)
 }
 
 
-
 void readTranslation(Translation* translation,sqlite3 **sqldb, std::ofstream &logFile)
 {
     translation->date        = QDate::fromString(readLine(),"dd MM yyyy");
@@ -148,9 +152,6 @@ void readTranslation(Translation* translation,sqlite3 **sqldb, std::ofstream &lo
 }
 
 
-
-
-
 QString readLine ()
 {
     std::string l;
@@ -159,12 +160,10 @@ QString readLine ()
 }
 
 
-
 void eraseTranslations()
 {
     for(int i = 0; i < db.size;)
          deleteTranslation(db.data[i]);
-
 }
 
 
@@ -176,26 +175,25 @@ void deleteTranslation(Translation* t)
 }
 
 
-
-void RemovePlanning(QDate date, QTime startRecTime, QTime endRecTime, int channel, sqlite3 **sqldb,std::ofstream &logFile)
+void RemovePlanning(QDate date, QTime startRecTime, QTime endRecTime, int channel,
+                    sqlite3 **sqldb,std::ofstream &logFile)
 {
     int idx = findTranslation(date, startRecTime, endRecTime, channel);
     if(idx < 0)
     {
         logFile<<"Во временном интервале с "<<startRecTime.toString().toStdString()<<" до "
-               <<endRecTime.toString().toStdString() <<" передача не обнаружена \n";
+               <<endRecTime.toString().toStdString() <<" передача не обнаружена"<<std::endl;
         return;
     }
     if(db.data[idx]->isPlanned)
     {
-        logFile<<"Передача "<< db.data[idx]->name.toStdString() <<" обнаружена и будет удалена из запланированных\n";
+        logFile<<"Передача "<< db.data[idx]->name.toStdString()
+               <<" обнаружена и будет удалена из запланированных"<<std::endl;
         db.data[idx]->isPlanned = false;
     }
-
     erasePlanning (date, channel, startRecTime, endRecTime, sqldb, logFile);
-    logFile<<"Передача "<< db.data[idx]->name.toStdString() <<" удалена из списка планирований\n";
-
+    logFile<<"Передача "<< db.data[idx]->name.toStdString()
+          <<" удалена из списка планирований"<<std::endl;
     eraseShows (channel, date, startRecTime, endRecTime, sqldb, logFile);
-
 }
 

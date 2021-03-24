@@ -18,7 +18,6 @@ public:
     ~MainWindow();
 
 private slots:
-
     void on_ExitPushButton_clicked();
     void on_UpdatePushButton_clicked();
     void on_Planning_pushButton_clicked();
@@ -29,13 +28,9 @@ private:
     std::ofstream logFile;
     char const* dbfile_name  = "./../data_files/myDB.db";
     char const* logfile_name = "./../data_files/log.txt";
-
-
     sqlite3* db = nullptr;
-
     void displTransl(QDate date, int channel);
     void displPlans();
     void displSel();
-
 };
 #endif // MAINWINDOW_H

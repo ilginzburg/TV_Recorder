@@ -34,7 +34,10 @@ Translation* createTranslation(sqlite3 **sqldb, std::ofstream &logFile);
 void eraseTranslations();
 void deleteTranslation(Translation* t);
 int findTranslation(QDate date, QTime startRecTime, QTime endRecTime, int channel);
-void addNewPlanning(QDate date, QTime startRecTime, QTime endRecTime, int channel, sqlite3 **sqldb,std::ofstream &logFile);
-void RemovePlanning(QDate date, QTime startRecTime, QTime endRecTime, int channel, sqlite3 **sqldb,std::ofstream &logFile);
-void addNewShows(QDate date, QTime startRecTime, QTime endRecTime, int channel, int idx, sqlite3 **sqldb,std::ofstream &logFile);
+void addNewPlanning(QDate date, QTime startRecTime, QTime endRecTime, int channel,
+                    sqlite3 **sqldb,std::ofstream &logFile);
+void RemovePlanning(QDate date, QTime startRecTime, QTime endRecTime, int channel,
+                    sqlite3 **sqldb,std::ofstream &logFile);
+void addNewShows(QDate date, QTime startRecTime, QTime endRecTime, int channel, int idx,
+                 sqlite3 **sqldb,std::ofstream &logFile);
 #endif // TRANSLATIONS_DB_H
