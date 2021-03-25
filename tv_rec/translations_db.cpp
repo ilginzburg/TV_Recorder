@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <QMessageBox>
 
-std::ifstream inFile;
+
 Translations db;
 
 void displayTranslations(QDate date, int channel, QString &s)
@@ -107,6 +107,7 @@ int findTranslation(QDate date, QTime startRecTime, QTime endRecTime, int channe
 
 void fillTranslations(sqlite3 **sqldb, std::ofstream &logFile)
 {
+     std::ifstream inFile;
      char const* infile_name  = "./../data_files/translations.ini";
      inFile.open(infile_name);
      db.size = 0;
@@ -119,29 +120,29 @@ void fillTranslations(sqlite3 **sqldb, std::ofstream &logFile)
          if (db.data != nullptr)
              delete[] db.data;
          db.data = new_data;
-         db.data[db.size] = createTranslation(sqldb, logFile);
+         db.data[db.size] = createTranslation(sqldb, logFile, inFile);
          logFile<<"Найдена трансляция: "<<db.data[db.size]->name.toStdString()<<"\n";
          ++db.size;
      }
 }
 
 
-Translation* createTranslation(sqlite3 **sqldb, std::ofstream &logFile)
+Translation* createTranslation(sqlite3 **sqldb, std::ofstream &logFile ,std::ifstream &inFile)
 {
     Translation* t = new Translation;
-    readTranslation (t, sqldb, logFile);
+    readTranslation (t, sqldb, logFile,inFile);
     return t;
 }
 
 
-void readTranslation(Translation* translation,sqlite3 **sqldb, std::ofstream &logFile)
+void readTranslation(Translation* translation,sqlite3 **sqldb, std::ofstream &logFile ,std::ifstream &inFile)
 {
-    translation->date        = QDate::fromString(readLine(),"dd MM yyyy");
-    translation->start_time  = QTime::fromString(readLine(),"hh:mm");
-    translation->end_time    = QTime::fromString(readLine(),"hh:mm");
-    translation->channel     = readLine();
-    translation->name        = readLine();
-    translation->rating      = readLine();
+    translation->date        = QDate::fromString(readLine(inFile),"dd MM yyyy");
+    translation->start_time  = QTime::fromString(readLine(inFile),"hh:mm");
+    translation->end_time    = QTime::fromString(readLine(inFile),"hh:mm");
+    translation->channel     = readLine(inFile);
+    translation->name        = readLine(inFile);
+    translation->rating      = readLine(inFile);
     if(isExistsPlanning(translation->name, translation->channel.toInt(), translation->date, translation->start_time, sqldb, logFile))
     {
         translation->isPlanned = true;
@@ -152,7 +153,7 @@ void readTranslation(Translation* translation,sqlite3 **sqldb, std::ofstream &lo
 }
 
 
-QString readLine ()
+QString readLine(std::ifstream &inFile)
 {
     std::string l;
     std::getline(inFile, l);

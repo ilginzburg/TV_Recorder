@@ -27,10 +27,10 @@ struct Translations
 
 
 void displayTranslations(QDate date, int channel, QString &s);
-QString readLine();
-void readTranslation (Translation* translation,sqlite3 **sqldb, std::ofstream &logFile);
+QString readLine(std::ifstream &inFile);
+void readTranslation (Translation* translation,sqlite3 **sqldb, std::ofstream &logFile, std::ifstream &inFile);
 void fillTranslations(sqlite3 **sqldb, std::ofstream &logFile);
-Translation* createTranslation(sqlite3 **sqldb, std::ofstream &logFile);
+Translation* createTranslation(sqlite3 **sqldb, std::ofstream &logFile, std::ifstream &inFile);
 void eraseTranslations();
 void deleteTranslation(Translation* t);
 int findTranslation(QDate date, QTime startRecTime, QTime endRecTime, int channel);
