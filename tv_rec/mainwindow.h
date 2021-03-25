@@ -29,6 +29,7 @@ private:
     char const* dbfile_name  = "./../data_files/myDB.db";
     char const* logfile_name = "./../data_files/log.txt";
     sqlite3* db = nullptr;
+    Translations transldb;
     void displTransl(QDate date, int channel);
     void displPlans();
     void displSel();

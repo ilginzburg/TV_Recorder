@@ -16,7 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->channel_spinBox->setRange(1,2);
     ui->TV_Progs_dateEdit->setMinimumDate(QDate::currentDate());
     ui->TV_Progs_dateEdit->setMaximumDate(QDate::currentDate().addDays(14));
-    fillTranslations(&db,logFile);
+    fillTranslations(&db, transldb, logFile);
     this->setWindowTitle("Планировщик записи ТВ передач");
     displPlans();
     displSel();
@@ -32,7 +32,7 @@ MainWindow::~MainWindow()
 void MainWindow::displTransl(QDate date, int channel)
 {
     QString s;
-    displayTranslations(date, channel, s);
+    displayTranslations(date, channel, s, transldb);
     ui->tvShows_textBrowser->setText(s);
 }
 
@@ -54,7 +54,7 @@ void MainWindow::displSel()
 
 void MainWindow::on_ExitPushButton_clicked()
 {
-    eraseTranslations();
+    eraseTranslations(transldb);
     logFile.close();
     close();
 }
@@ -73,6 +73,7 @@ void MainWindow::on_Planning_pushButton_clicked()
                    ui->PlanningEndTimeEdit->time(),
                    ui->channel_spinBox->value(),
                    &db,
+                   transldb,
                    logFile);
     displPlans();
     displSel();
@@ -85,6 +86,7 @@ void MainWindow::on_Plans_Remove_button_clicked()
                    ui->Plans_PlanningEndTimeEdit->time(),
                    ui->Plans_channel_spinBox->value(),
                    &db,
+                   transldb,
                    logFile);
     displPlans();
     displSel();
